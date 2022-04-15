@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插槽的具体用法</title>
+</head>
+<body>
+    <div id="app">
+        <alert-box>有bug发生</alert-box>
+        <alert-box></alert-box>
+    </div>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript">
+        //组件插槽：父组件向子组件传递内容
+        Vue.component('alert-box',{
+            template:`  
+               <div>
+                  <strong>ERROR:</strong>
+                  <slot>默认内容</slot>
+               </div>
+            `
+        })
+        var vm =new Vue({
+            el:"#app",
+            data:{}
+        })
+    </script>
+</body>
+</html>
