@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise常用API的实例方法</title>
+</head>
+
+<body>
+    <script>
+        /*Promise常用API-实例方法*/
+        // console.dir(Promise);
+        function foo() {
+            return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    // resject('error');
+                    reject('error');
+                }, 10)
+            });
+        }
+        // foo()
+        //   .then(function(data){
+        //     console.log(data)
+        //   })
+        //   .catch(function(data){
+        //     console.log(data)
+        //   })
+        //   .finally(function(){
+        //     console.log('finished')
+        //   });
+
+        // --------------------------
+        // 两种写法是等效的
+        foo()
+            .then(function (data) {
+                console.log(data)
+            }, function (data) {
+                console.log(data)
+            })
+            .finally(function () {
+                console.log('finished')
+            });
+
+    </script>
+</body>
+
+</html>
