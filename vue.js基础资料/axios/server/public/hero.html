@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+<body>
+  <div id="app">
+    <div class="grid">
+        <h1>英雄列表管理</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>编号</th>
+            <th>英雄</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :key='item.id' v-for='item in heros'>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>
+              <a href="" @click.prevent='deleteHero(item.id)'>删除</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script type="text/javascript" src="js/vue.js"></script>
+  <script type="text/javascript" src="js/axios.js"></script>
+  <script type="text/javascript">
+
+    axios.defaults.baseURL = 'http://localhost:3000/';
+    axios.interceptors.response.use(function(res){
+      return res.data;
+    }, function(error){
+      console.log(error)
+    });
+    
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        id: '',
+        name: '',
+        heros: []
+      },
+      methods: {
+        deleteHero: async function(id){
+          var ret = await axios.delete('heros/' + id);
+          if(ret.status == 200) {
+            // 重新加载列表数据
+            this.queryData();
+          }
+        },
+        queryData: async function(){
+          this.heros = await axios.get('heros');
+        }
+      },
+      mounted: function(){
+        this.queryData();
+      }
+    });
+  </script>
+</body>
+</html>
