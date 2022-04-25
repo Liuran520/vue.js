@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态路由匹配2</title>
+    <script type="text/javascript" src="./lib/vue_2.5.22.js"></script>
+    <script type="text/javascript" src="./lib/vue-router_3.0.2.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/user/1">User1</router-link>
+        <router-link to="/user/2">User2</router-link>
+        <router-link to="/user/3">User3</router-link>
+        <router-link to="/register">Register</router-link>
+        <!-- 路由占位符 -->
+        <router-view></router-view>
+    </div>
+    <script>
+        const User = {
+            template: '<h1>User 组件 -- 用户id为: {{$route.params.id}}</h1>'
+        }
+
+        const Register = {
+            template: '<h1>Register 组件</h1>'
+        }
+        // 创建路由实例对象
+        const router = new VueRouter({
+            // 所有的路由规则
+            routes: [
+                { path: '/', redirect: '/user' },
+                { path: '/user/:id', component: User,props: true },
+                { path: '/register', component: Register }
+            ]
+        })
+        var vm = new Vue({
+            el: "#app",
+            data: {},
+            // 挂载路由实例对象
+            // router: router
+            router
+        })
+    </script>
+</body>
+
+</html>
